@@ -58,6 +58,7 @@ function App() {
   }
   
   const switchSelection = () =>{
+    getCurrentResult()
     setResult(0);
   }
   return (
@@ -93,3 +94,9 @@ function App() {
 }
 
 export default App;
+
+
+
+// My skype name: live:.cid.9a654b79ec08a141
+// telegram:  topManager0107
+// discord: lucaly#9244
