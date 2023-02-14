@@ -4,14 +4,12 @@ import axios from 'axios'
 
 function App() {
   const [dcp, setDcp] = useState(0.0); 
-  const [last, setLast] = useState(0.0);
   const [result, setResult] = useState(0.0);  
-  const [curData, setCurData] = useState([]); 
   const [curValue, setCurValue] = useState(0.0); 
-  const currencyType = ["usd","busd"]
+  const [dcpflag, setDcpflag] = useState(false)
   useEffect(() => {
     getCurrentResult();
-    // setCurValue(listData[0].value)
+    // 
   }, []);
   const [listData, setListData] = useState([]); 
   
@@ -23,7 +21,6 @@ function App() {
           text += response.data[x] + ", ";
         }
         setDcp(parseFloat(text));
-        console.log(parseFloat(text))
         resolve(1);
       })
       .catch((err) => {
@@ -48,26 +45,34 @@ function App() {
   const getCurrentResult = async () => {
     await getDCP();
     await getTicker();
+    if(listData.length>0)setCurValue(listData[0].value);
+    else setCurValue(0)
   }
   function showCurrency(e){
-    setCurValue(listData.filter(item => item.curtype === e.target.value)[0].value);
-    console.log(listData[0].value)
+    setCurValue(listData.filter(item => item.curtype === e.target.value)[0].value);    
   }
   const showConvertValue = () =>{
     setResult(dcp*curValue/100000000);
   }
-  
   const switchSelection = () =>{
-    getCurrentResult()
-    setResult(0);
+    if(!dcpflag){
+      getCurrentResult();
+    }
+    else{
+      setResult(0);
+      setDcp(0)
+    }
+    setDcpflag(!dcpflag);
+
   }
+  
   return (
         <div className=' w-full h-full justify-center items-center'>
           <div className='flex flex-col'>
             <div className='flex flex-row mt-20px space-x-5'>
               <p>              
-                DCP:&nbsp; &nbsp;{dcp}          
-              </p>              
+                DCP:&nbsp; &nbsp;</p> 
+                {!dcpflag?(<input type="text" className="w-44" value={dcp} onChange={(e) => setDcp(e.target.value)}></input>):(<input type="text" className="w-44" value={dcp}></input>)}
               <p>
                 ConvertTo:&nbsp; &nbsp;<select name="cars" id="cars" onChange={showCurrency}> 
                             {listData.map((menuItem, index) => (
