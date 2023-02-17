@@ -116,144 +116,181 @@ function App() {
   };
   const handleY = (e) => {
     setY(e.target.value);
-
-    console.log(last);
-
-    setX(parseFloat(e.target.value)*100000000/(last*dcp));
-
-
-
-
-
-
-
-
+    setX((parseFloat(e.target.value) * 100000000) / (last * dcp));
   };
-  const changePos = () =>{
+  const changePos = () => {
     setX("");
     setY("");
     setChgPos(!chgPos);
-  }
+  };
 
   return (
-    <div className="bg-black w-screen h-screen items-center">
+    <div className="bg-gradient-to-r from-[#450779]  to-[#b6296f] w-screen h-screen items-center">
+      <div className="h-[38px]"></div>
+      <div className="w-[69px] h-[73.69px] mt-[38px] ml-[93px]">
+        <img src="img/logo.png" alt="animal"></img>
+      </div>
       <div className="flex flex-col items-center">
-        <p className="text-white font-black text-7xl  mt-56 items-center">
-          Facinating converter
-        </p>
-        <div className="mt-12  flex flex-col mt-20px">
-          {chgPos?(<div className="rounded-3xl w-[560px] h-[79px] bg-white">
-            <select
-              name="cars"
-              id="cars"
-              className="ml-2 mt-2 rounded-lg hover:bg-sky-700 w-28 h-16 bg-indigo-500"
-              onChange={d_s}
-            >
-              <option id="a" value="Satosh">
-                Satosh
-              </option>
-              <option id="a" value="Dcp">
-                Dcp
-              </option>
-            </select>
-            <input
-              type="text"
-              className=" outline-none text-right pr-4 text-3xl h-16 font-semibold text-black w-96 "
-              placeholder="0"
-              value={x}
-              onChange={(e) => {
-                if (!isNaN(+e.target.value)) handleX(e);
-              }}
-            ></input>
-          </div>):(
-            <div className="rounded-3xl w-[560px] h-[79px] bg-white">
-            <select
-              name="cars"
-              id="cars"
-              className="ml-2 mt-2 rounded-lg hover:bg-sky-700 w-28 h-16 bg-indigo-500"
-              onChange={showCurrency}
-            >
-              {listData.map((menuItem, index) => (
-                <option id="x" key={index} value={menuItem.curtype}>
-                  {menuItem.curtype}
-                </option>
-              ))}
-            </select>
-            <input
-              type="text"
-              className="outline-none rounded-lg h-16 text-right pr-4 text-black w-96"
-              placeholder="0.00"
-              value={y}
-              onChange={(e) => handleY(e)}
-            ></input>
-            </div>
-     
-          )}
-          <div className="mt-12 flex flex-row" onClick={changePos}>
-          <img
-            width="60"
-            height="40"
-            src="updown.png"
-            alt="animal"
-          ></img>
-          <p className="text-white">TO</p>
+        <div className="flex flex-row">
+          <div className="w-[200px] h-[50px]"></div>
+          <p className="mt-[100px] text-white font-medium  text-[44px] leading-[60px] text-7xl tracking-[0.5px] w-[481px] h-[76px]  items-center">
+            DCP general converter
+          </p>
         </div>
-        {chgPos?(
-        <div className="rounded-3xl w-[560px] h-[79px] bg-white">
-            <select
-              name="cars"
-              id="cars"
-              className="ml-2 mt-2 rounded-lg hover:bg-sky-700 w-28 h-16 bg-indigo-500"
-              onChange={showCurrency}
-            >
-              {listData.map((menuItem, index) => (
-                <option id="x" key={index} value={menuItem.curtype}>
-                  {menuItem.curtype}
-                </option>
-              ))}
-            </select>
-            <input
-              type="text"
-              className="outline-none rounded-lg h-16 text-right pr-4 text-black w-96"
-              placeholder="0.00"
-              value={y}
-              onChange={(e) => handleY(e)}/>
+        <div className="mt-[90px]  flex flex-col mt-20px">
+          <div className="flex flex-row">
+            <div className="w-[183px] h-[41.85px]">
+              <p className="text-white tracking-[.410314px] mt-[20px] mr-[15px] leading-[49px] text-[36.1076px] font-medium">
+                CONVERT
+              </p>
             </div>
-        
-        ):(<div className="rounded-3xl w-[560px] h-[79px] bg-white">
-        <select
-          name="cars"
-          id="cars"
-          className="ml-2 mt-2 rounded-lg hover:bg-sky-700 w-28 h-16 bg-indigo-500"
-          onChange={d_s}
-        >
-          <option id="a" value="Satosh">
-            Satosh
-          </option>
-          <option id="a" value="Dcp">
-            Dcp
-          </option>
-        </select>
-        <input
-          type="text"
-          className=" outline-none text-right pr-4 text-3xl h-16 font-semibold text-black w-96 "
-          placeholder="0"
-          value={x}
-          onChange={(e) => {
-            if (!isNaN(+e.target.value)) handleX(e);
-          }}
-        ></input>
+            {chgPos ? (
+              <div className="flex flex-row justify-center  items-center rounded-[50px] w-[465px] h-[87px] bg-white">
+                <select
+                  name="cars"
+                  id="cars"
+                  className="rounded-lg ml-[30px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[93px] h-[63px] font-medium text-white bg-[#4e1576]"
+                  onChange={d_s}
+                >
+                  <option id="a" value="Satosh">
+                    Sato
+                  </option>
+                  <option id="a" value="Dcp">
+                    Dcp
+                  </option>
+                </select>
+                <input
+                  type="text"
+                  className="outline-none w-[230px] tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black "
+                  placeholder="0.00"
+                  value={x}
+                  onChange={(e) => {
+                    if (!isNaN(+e.target.value)) handleX(e);
+                  }}
+                ></input>
+                <img
+                  className="w-[25px] h-[41px]"
+                  src="img/Vector (3).png"
+                  alt="animal"
+                ></img>
+                <img
+                  className="w-[25px] h-[41px]"
+                  src="img/Vector (2).png"
+                  alt="animal"
+                ></img>
+              </div>
+            ) : (
+              <div className="flex flex-row justify-center items-center rounded-[50px] w-[465px] h-[87px] bg-white">
+                <select
+                  name="cars"
+                  id="cars"
+                  className="rounded-lg ml-[30px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[93px] h-[63px] font-medium text-white bg-[#4e1576]"
+                  onChange={showCurrency}
+                >
+                  {listData.map((menuItem, index) => (
+                    <option id="x" key={index} value={menuItem.curtype}>
+                      {menuItem.curtype}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="text"
+                  className="outline-none w-[280px] tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black"
+                  placeholder="0.00"
+                  value={y}
+                  onChange={(e) => handleY(e)}
+                ></input>
+              </div>
+            )}
+          </div>
+          <div
+            className="mt-[37px] ml-[143px] flex flex-row"
+            onClick={changePos}
+          >
+            <img
+              className="h-[35px] w-[19.69px] "
+              src="img/Vector (1).png"
+              alt="animal"
+            ></img>
+            <img
+              className="h-[35px] w-[19.69px] "
+              src="img/Vector.png"
+              alt="animal"
+            ></img>
+            <div className="w-[55px] h-[42px]  ml-[221.15px]">
+              <p className="text-white w-[55px] h-[42px] leading-[49px] tracking-[.410314px] font-medium text-[36.1076px]">
+                TO
+              </p>
+            </div>
+          </div>
+          <div className="mt-[40px] flex flex-row">
+            <div className=" w-[183px] h-[50px] "></div>
+            {chgPos ? (
+              <div className="flex flex-row justify-center items-center rounded-[50px] w-[465px] h-[87px] bg-white">
+                <select
+                  name="cars"
+                  id="cars"
+                  className="rounded-lg ml-[30px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[93px] h-[63px] font-medium text-white bg-[#4e1576]"
+                  onChange={showCurrency}
+                >
+                  {listData.map((menuItem, index) => (
+                    <option id="x" key={index} value={menuItem.curtype}>
+                      {menuItem.curtype}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="text"
+                  className="outline-none w-[280px] rounded-lg h-16 tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black "
+                  placeholder="0.00"
+                  value={y}
+                  onChange={(e) => handleY(e)}
+                />
+              </div>
+            ) : (
+              <div className="flex flex-row justify-center items-center rounded-[50px] w-[465px] h-[87px] bg-white">
+                <select
+                  name="cars"
+                  id="cars"
+                  className="rounded-lg ml-[30px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[93px] h-[63px] font-medium text-white bg-[#4e1576]"
+                  onChange={d_s}
+                >
+                  <option id="a" value="Satosh">
+                    Sato
+                  </option>
+                  <option id="a" value="Dcp">
+                    Dcp
+                  </option>
+                </select>
+                <input
+                  type="text"
+                  className="outline-none w-[230px] tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black"
+                  placeholder="0.00"
+                  value={x}
+                  onChange={(e) => {
+                    if (!isNaN(+e.target.value)) handleX(e);
+                  }}
+                ></input>
+                <img
+                  className="w-[25px] h-[41px]"
+                  src="img/Vector (3).png"
+                  alt="animal"
+                ></img>
+                <img
+                  className="w-[25px] h-[41px]"
+                  src="img/Vector (2).png"
+                  alt="animal"
+                ></img>
+              </div>
+            )}
+          </div>
+          <p className="text-white absolute bottom-[74px] text-3xl">
+            Note-Estimates are not exact and are updated about every fifteen
+            minutes.
+          </p>
+        </div>
       </div>
-            
-     
-          )}
-        
-
-        <p className="text-white absolute bottom-0 text-3xl">
-          Copyright(2023): This software will be secured by authors.
-        </p>
-      </div>
-    </div></div>
+    </div>
   );
 }
 
