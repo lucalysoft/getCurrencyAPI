@@ -4,6 +4,9 @@ import axios from "axios";
 
 function App() {
   const [dcp, setDcp] = useState(0.0);
+  const [result, setResult] = useState(0.0);
+  const [curValue, setCurValue] = useState(0.0);
+  const [dcpflag, setDcpflag] = useState(false);
   const [listData, setListData] = useState([]);
   const [x, setX] = useState("");
   const [y, setY] = useState("");
@@ -54,77 +57,81 @@ function App() {
     await getTicker();
   };
   function showCurrency(e) {
-    let tmp = parseFloat(listData.filter((item) => item.curtype === e.target.value)[0].value).toFixed(4);
+    setX("");
+    setY("");
     setA(1);
-    setLast(tmp);
-    if (!chgPos) {
-      if (y !== "") setX(parseFloat(y / dcp * 100000000 / tmp).toFixed(4));
-      else {
-        setY("");
-      }
-    }
-    else {
-      setY(parseFloat(x * dcp * tmp / 100000000).toFixed(4));
-    }
-
-
+    setLast(
+      parseFloat(
+        listData.filter((item) => item.curtype === e.target.value)[0].value
+      )
+    );
+    console.log(parseFloat(listData.filter((item) => item.curtype === e.target.value)[0].value))
   }
   const d_s = (e) => {
     setX("");
     setY("");
     setA(1);
     setSeld_s("DCP");
-    // console.log(e.target.value)
+    console.log(e.target.value)
   };
+  // const showConvertValue = () => {
+  //   setResult((dcp * curValue) / 100000000);
+  // };
+  // const switchSelection = () => {
+  //   if (!dcpflag) {
+  //     getCurrentResult();
+  //   } else {
+  //     setResult(0);
+  //     setDcp(0);
+  //   }
+  //   setDcpflag(!dcpflag);
+  // };
   const handleX = (e) => {
-    if (chgPos) {
-      if (e.target.value === "") {
-        setX("");
-        setY("");
-      }
-      else {
+    if (e.target.value === "") {
+      setX("");
+      setY("");
+    } else {
+      if (seld_s === "" || seld_s === "Satosh") {
         setX(e.target.value);
         let y_value;
         if (a === 0) {
           setLast(listData[0].value);
-          y_value = parseFloat((parseFloat(e.target.value) * dcp * listData[0].value) / 100000000).toFixed(4);
-        }
-        else y_value = parseFloat((parseFloat(e.target.value) * dcp * last) / 100000000).toFixed(4);
+          y_value = parseFloat(
+            (parseFloat(e.target.value) * listData[0].value) / 100000000,
+            2
+          );
+        } else
+          y_value = parseFloat(
+            (parseFloat(e.target.value) * last) / 100000000,
+            2
+          );
+        setY(y_value);
+      } else {
+        setX(e.target.value);
+        let y_value = parseFloat(
+          (parseFloat(e.target.value) * dcp * last) / 100000000,
+          2
+        );
         setY(y_value);
       }
     }
-
   };
   const handleY = (e) => {
-    if (!chgPos) {
-      if (e.target.value === "") {
-        setX("");
-        setY("");
-      }
-      else {
-        setY(e.target.value);
-        setX(parseFloat((parseFloat(e.target.value) * 100000000) / (last * dcp)).toFixed(4));
-      }
-    }
-
+    console.log(last,dcp)
+    setY(e.target.value);
+    setX((parseFloat(e.target.value) * 100000000) / (last * dcp));
   };
   const changePos = () => {
     setX("");
     setY("");
-    setLast(listData[0].value.toFixed(4))
+    setLast(listData[0].value)
     setChgPos(!chgPos);
   };
-  const initial = () => {
-    getCurrentResult();
-    setX("");
-    setY("");
-    setChgPos(true);
 
-  }
   return (
     <div className="bg-gradient-to-r from-[#450779]  to-[#b6296f] w-screen h-[100vh] items-center min-w-[1024px]">
       <div className="h-[38px]"></div>
-      <div className="w-[69px] h-[73.69px] mt-[38px] ml-[93px] cursor-pointer" onClick={initial} >
+      <div className="w-[69px] h-[73.69px] mt-[38px] ml-[93px]">
         <img src="img/logo.png" alt="animal" className="w-21 md:w-40 lg:w-69"></img>
       </div>
       <div className="flex flex-col items-center">
@@ -142,9 +149,22 @@ function App() {
               </p>
             </div>
             {chgPos ? (
-              <div className="shadow-md flex flex-row justify-center  items-center rounded-[50px] w-[465px] h-[87px] bg-white">
+              <div className="flex flex-row justify-center  items-center rounded-[50px] w-[465px] h-[87px] bg-white">
                 <button className="rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[120px] h-[63px] font-medium text-white bg-[#4e1576]"
                   onClick={d_s}>DCP</button>
+                {/* <select
+                  name="cars"
+                  id="cars"
+                  className="rounded-lg ml-[30px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[93px] h-[63px] font-medium text-white bg-[#4e1576]"
+                  onChange={d_s}
+                >
+                  <option id="a" value="Satosh">
+                    Sato
+                  </option>
+                  <option id="a" value="Dcp">
+                    Dcp
+                  </option>
+                </select> */}
                 <input
                   type="text"
                   className="outline-none w-[300px] tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black "
@@ -166,11 +186,11 @@ function App() {
                 ></img>
               </div>
             ) : (
-              <div className="shadow-md flex flex-row justify-start items-center rounded-[50px] w-[465px] h-[87px] bg-white">
+              <div className="flex flex-row justify-start items-center rounded-[50px] w-[465px] h-[87px] bg-white">
                 <select
                   name="cars"
                   id="cars"
-                  className=" cursor-pointer rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[73px] h-[63px] font-medium text-white bg-[#4e1576]"
+                  className="rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[73px] h-[63px] font-medium text-white bg-[#4e1576]"
                   onChange={showCurrency}
                 >
                   {listData.map((menuItem, index) => (
@@ -190,7 +210,7 @@ function App() {
             )}
           </div>
           <div
-            className="mt-[37px] ml-[143px] flex flex-row  cursor-pointer"
+            className="mt-[37px] ml-[143px] flex flex-row"
             onClick={changePos}
           >
             <img
@@ -212,11 +232,11 @@ function App() {
           <div className="mt-[40px] flex flex-row">
             <div className=" w-[183px] h-[50px] "></div>
             {chgPos ? (
-              <div className="shadow-md flex flex-row justify-start items-center rounded-[50px] w-[465px] h-[87px] bg-white">
+              <div className="flex flex-row justify-start items-center rounded-[50px] w-[465px] h-[87px] bg-white">
                 <select
                   name="cars"
                   id="cars"
-                  className=" cursor-pointer rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[73px] h-[63px] font-medium text-white bg-[#4e1576]"
+                  className="rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[73px] h-[63px] font-medium text-white bg-[#4e1576]"
                   onChange={showCurrency}
                 >
                   {listData.map((menuItem, index) => (
@@ -234,7 +254,20 @@ function App() {
                 />
               </div>
             ) : (
-              <div className="shadow-md flex flex-row justify-center items-center rounded-[50px] w-[465px] h-[87px] bg-white">
+              <div className="flex flex-row justify-center items-center rounded-[50px] w-[465px] h-[87px] bg-white">
+                {/* <select
+                  name="cars"
+                  id="cars"
+                  className="rounded-lg ml-[30px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[93px] h-[63px] font-medium text-white bg-[#4e1576]"
+                  onChange={d_s}
+                >
+                  <option id="a" value="Satosh">
+                    Sato
+                  </option>
+                  <option id="a" value="Dcp">
+                    Dcp
+                  </option>
+                </select> */}
                 <button className="rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[120px] h-[63px] font-medium text-white bg-[#4e1576]"
                   onClick={d_s}>DCP</button>
                 <input
@@ -259,8 +292,9 @@ function App() {
               </div>
             )}
           </div>
-          <p className="text-white absolute mt-[359px] mb-[74px] ml-[130px] text-3xl justify-center item-center">
-            Note-updating about every fifteen minutes.
+          <p className="text-white absolute mt-[359px] mb-[74px] text-3xl justify-center item-center">
+            Note-Estimates are not exact and are updated about every fifteen
+            minutes.
           </p>
         </div>
       </div>
