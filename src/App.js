@@ -65,25 +65,27 @@ function App() {
         listData.filter((item) => item.curtype === e.target.value)[0].value
       )
     );
+    console.log(parseFloat(listData.filter((item) => item.curtype === e.target.value)[0].value))
   }
   const d_s = (e) => {
     setX("");
     setY("");
     setA(1);
-    setSeld_s(e.target.value);
+    setSeld_s("DCP");
+    console.log(e.target.value)
   };
-  const showConvertValue = () => {
-    setResult((dcp * curValue) / 100000000);
-  };
-  const switchSelection = () => {
-    if (!dcpflag) {
-      getCurrentResult();
-    } else {
-      setResult(0);
-      setDcp(0);
-    }
-    setDcpflag(!dcpflag);
-  };
+  // const showConvertValue = () => {
+  //   setResult((dcp * curValue) / 100000000);
+  // };
+  // const switchSelection = () => {
+  //   if (!dcpflag) {
+  //     getCurrentResult();
+  //   } else {
+  //     setResult(0);
+  //     setDcp(0);
+  //   }
+  //   setDcpflag(!dcpflag);
+  // };
   const handleX = (e) => {
     if (e.target.value === "") {
       setX("");
@@ -115,25 +117,27 @@ function App() {
     }
   };
   const handleY = (e) => {
+    console.log(last,dcp)
     setY(e.target.value);
     setX((parseFloat(e.target.value) * 100000000) / (last * dcp));
   };
   const changePos = () => {
     setX("");
     setY("");
+    setLast(listData[0].value)
     setChgPos(!chgPos);
   };
 
   return (
-    <div className="bg-gradient-to-r from-[#450779]  to-[#b6296f] w-screen h-screen items-center">
+    <div className="bg-gradient-to-r from-[#450779]  to-[#b6296f] w-screen h-[100vh] items-center min-w-[1024px]">
       <div className="h-[38px]"></div>
       <div className="w-[69px] h-[73.69px] mt-[38px] ml-[93px]">
-        <img src="img/logo.png" alt="animal"></img>
+        <img src="img/logo.png" alt="animal" className="w-21 md:w-40 lg:w-69"></img>
       </div>
       <div className="flex flex-col items-center">
         <div className="flex flex-row">
           <div className="w-[200px] h-[50px]"></div>
-          <p className="mt-[100px] text-white font-medium  text-[44px] leading-[60px] text-7xl tracking-[0.5px] w-[481px] h-[76px]  items-center">
+          <p className=" text-white font-medium  text-[44px] leading-[60px] text-7xl tracking-[0.5px] w-[481px] h-[76px]  items-center">
             DCP general converter
           </p>
         </div>
@@ -146,7 +150,9 @@ function App() {
             </div>
             {chgPos ? (
               <div className="flex flex-row justify-center  items-center rounded-[50px] w-[465px] h-[87px] bg-white">
-                <select
+                <button className="rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[120px] h-[63px] font-medium text-white bg-[#4e1576]"
+                  onClick={d_s}>DCP</button>
+                {/* <select
                   name="cars"
                   id="cars"
                   className="rounded-lg ml-[30px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[93px] h-[63px] font-medium text-white bg-[#4e1576]"
@@ -158,10 +164,10 @@ function App() {
                   <option id="a" value="Dcp">
                     Dcp
                   </option>
-                </select>
+                </select> */}
                 <input
                   type="text"
-                  className="outline-none w-[230px] tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black "
+                  className="outline-none w-[300px] tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black "
                   placeholder="0.00"
                   value={x}
                   onChange={(e) => {
@@ -180,11 +186,11 @@ function App() {
                 ></img>
               </div>
             ) : (
-              <div className="flex flex-row justify-center items-center rounded-[50px] w-[465px] h-[87px] bg-white">
+              <div className="flex flex-row justify-start items-center rounded-[50px] w-[465px] h-[87px] bg-white">
                 <select
                   name="cars"
                   id="cars"
-                  className="rounded-lg ml-[30px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[93px] h-[63px] font-medium text-white bg-[#4e1576]"
+                  className="rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[73px] h-[63px] font-medium text-white bg-[#4e1576]"
                   onChange={showCurrency}
                 >
                   {listData.map((menuItem, index) => (
@@ -195,7 +201,7 @@ function App() {
                 </select>
                 <input
                   type="text"
-                  className="outline-none w-[280px] tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black"
+                  className="outline-none w-[305px] tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black"
                   placeholder="0.00"
                   value={y}
                   onChange={(e) => handleY(e)}
@@ -226,11 +232,11 @@ function App() {
           <div className="mt-[40px] flex flex-row">
             <div className=" w-[183px] h-[50px] "></div>
             {chgPos ? (
-              <div className="flex flex-row justify-center items-center rounded-[50px] w-[465px] h-[87px] bg-white">
+              <div className="flex flex-row justify-start items-center rounded-[50px] w-[465px] h-[87px] bg-white">
                 <select
                   name="cars"
                   id="cars"
-                  className="rounded-lg ml-[30px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[93px] h-[63px] font-medium text-white bg-[#4e1576]"
+                  className="rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[73px] h-[63px] font-medium text-white bg-[#4e1576]"
                   onChange={showCurrency}
                 >
                   {listData.map((menuItem, index) => (
@@ -241,7 +247,7 @@ function App() {
                 </select>
                 <input
                   type="text"
-                  className="outline-none w-[280px] rounded-lg h-16 tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black "
+                  className="outline-none w-[305px] rounded-lg h-16 tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black "
                   placeholder="0.00"
                   value={y}
                   onChange={(e) => handleY(e)}
@@ -249,7 +255,7 @@ function App() {
               </div>
             ) : (
               <div className="flex flex-row justify-center items-center rounded-[50px] w-[465px] h-[87px] bg-white">
-                <select
+                {/* <select
                   name="cars"
                   id="cars"
                   className="rounded-lg ml-[30px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[93px] h-[63px] font-medium text-white bg-[#4e1576]"
@@ -261,10 +267,12 @@ function App() {
                   <option id="a" value="Dcp">
                     Dcp
                   </option>
-                </select>
+                </select> */}
+                <button className="rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[120px] h-[63px] font-medium text-white bg-[#4e1576]"
+                  onClick={d_s}>DCP</button>
                 <input
                   type="text"
-                  className="outline-none w-[230px] tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black"
+                  className="outline-none w-[300px] tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black"
                   placeholder="0.00"
                   value={x}
                   onChange={(e) => {
@@ -284,7 +292,7 @@ function App() {
               </div>
             )}
           </div>
-          <p className="text-white absolute bottom-[74px] text-3xl">
+          <p className="text-white absolute mt-[359px] mb-[74px] text-3xl justify-center item-center">
             Note-Estimates are not exact and are updated about every fifteen
             minutes.
           </p>
