@@ -70,10 +70,10 @@ function App() {
 
   }
   const d_s = (e) => {
-    setX("");
-    setY("");
-    setA(1);
-    setSeld_s("DCP");
+    // setX("");
+    // setY("");
+    // setA(1);
+    // setSeld_s("DCP");
     // console.log(e.target.value)
   };
   const handleX = (e) => {
@@ -122,32 +122,32 @@ function App() {
 
   }
   return (
-    <div className="bg-gradient-to-r from-[#450779]  to-[#b6296f] w-screen h-[100vh] items-center min-w-[1024px]">
+    <div className="bg-gradient-to-r from-[#450779]  to-[#b6296f] w-screen h-[100vh] items-center min-w-[450px]">
       <div className="h-[38px]"></div>
-      <div className="w-[69px] h-[73.69px] mt-[38px] ml-[93px] cursor-pointer" onClick={initial} >
+      <div className="md:w-[69px] md:h-[73.69px] md:mt-[38px] ml-[10px] md:ml-[93px] cursor-pointer" onClick={initial} >
         <img src="img/logo.png" alt="animal" className="w-21 md:w-40 lg:w-69"></img>
       </div>
       <div className="flex flex-col items-center">
-        <div className="flex flex-row">
-          <div className="w-[200px] h-[50px]"></div>
-          <p className=" text-white font-medium  text-[44px] leading-[60px] text-7xl tracking-[0.5px] w-[481px] h-[76px]  items-center">
+        <div className="flex flex-row justify-center items-center">
+          <div className=" md:w-[200px] md:h-[50px]"></div>
+          <p className=" text-white font-medium  mx-auto text-[30px] md:text-[44px] leading-[60px] text-7xl tracking-[0.5px] w-[481px] h-[76px]  items-center">
             DCP general converter
           </p>
         </div>
-        <div className="mt-[90px]  flex flex-col mt-20px">
-          <div className="flex flex-row">
-            <div className="w-[183px] h-[41.85px]">
-              <p className="text-white tracking-[.410314px] mt-[20px] mr-[15px] leading-[49px] text-[36.1076px] font-medium">
+        <div className="mt-[20px] md:mt-[90px]  flex flex-col mt-20px">
+          <div className=" justify-center items-start md:items-center flex flex-col  md:flex-row">
+            <div className="items-start md:w-[183px] md:h-[41.85px]">
+              <p className="text-white tracking-[.410314px] mb-[5px] md:mb-[1px] md:mr-[15px] leading-[49px] text-[xl] md:text-[36.1076px] font-medium">
                 CONVERT
               </p>
             </div>
             {chgPos ? (
               <div className="shadow-md flex flex-row justify-center  items-center rounded-[50px] w-[465px] h-[87px] bg-white">
-                <button className="rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[120px] h-[63px] font-medium text-white bg-[#4e1576]"
+                <button className=" cursor-pointer rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[73px] h-[63px] font-medium text-white bg-[#4e1576]"
                   onClick={d_s}>DCP</button>
                 <input
                   type="text"
-                  className="outline-none w-[300px] tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black "
+                  className="outline-none w-4/5 md:w-[300px] tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black "
                   placeholder="0.00"
                   value={x}
                   onChange={(e) => {
@@ -167,72 +167,74 @@ function App() {
               </div>
             ) : (
               <div className="shadow-md flex flex-row justify-start items-center rounded-[50px] w-[465px] h-[87px] bg-white">
-                <select
-                  name="cars"
-                  id="cars"
-                  className=" cursor-pointer rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[73px] h-[63px] font-medium text-white bg-[#4e1576]"
-                  onChange={showCurrency}
-                >
-                  {listData.map((menuItem, index) => (
-                    <option id="x" key={index} value={menuItem.curtype}>
-                      {menuItem.curtype}
-                    </option>
-                  ))}
-                </select>
-                <input
-                  type="text"
-                  className="outline-none w-[305px] tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black"
-                  placeholder="0.00"
-                  value={y}
-                  onChange={(e) => handleY(e)}
-                ></input>
-              </div>
+              <select
+                name="cars"
+                id="cars"
+                className=" cursor-pointer rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[73px] h-[63px] font-medium text-white bg-[#4e1576]"
+                onChange={showCurrency}
+              >
+                {listData.map((menuItem, index) => (
+                  <option id="x" key={index} value={menuItem.curtype}>
+                    {menuItem.curtype}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="text"
+                className="outline-none w-[305px] rounded-lg h-16 tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black "
+                placeholder="0.00"
+                value={y}
+                onChange={(e) => handleY(e)}
+              />
+            </div>
             )}
           </div>
           <div
-            className="mt-[37px] ml-[143px] flex flex-row  cursor-pointer"
-            onClick={changePos}
+            className="mt-[37px] ml-[143px] flex flex-row  "
+            
           >
             <img
-              className="h-[35px] w-[19.69px] "
+              className="h-[35px] w-[19.69px] cursor-pointer"
               src="img/Vector (1).png"
               alt="animal"
+              onClick={changePos}
             ></img>
             <img
-              className="h-[35px] w-[19.69px] "
+              className="h-[35px] w-[19.69px] cursor-pointer"
               src="img/Vector.png"
               alt="animal"
+              onClick={changePos}
             ></img>
-            <div className="w-[55px] h-[42px]  ml-[221.15px]">
-              <p className="text-white w-[55px] h-[42px] leading-[49px] tracking-[.410314px] font-medium text-[36.1076px]">
+            <div className="w-[55px] h-[42px]  ml-[20px] md:ml-[221.15px]">
+              <p className="text-white w-[55px] h-[42px] leading-[49px] tracking-[.410314px] font-medium text-[xl] md:text-[36.1076px]">
                 TO
               </p>
             </div>
           </div>
           <div className="mt-[40px] flex flex-row">
-            <div className=" w-[183px] h-[50px] "></div>
+            <div className=" w-[5px] md:w-[183px] md:h-[50px] "></div>
             {chgPos ? (
               <div className="shadow-md flex flex-row justify-start items-center rounded-[50px] w-[465px] h-[87px] bg-white">
-                <select
-                  name="cars"
-                  id="cars"
-                  className=" cursor-pointer rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[73px] h-[63px] font-medium text-white bg-[#4e1576]"
-                  onChange={showCurrency}
-                >
-                  {listData.map((menuItem, index) => (
-                    <option id="x" key={index} value={menuItem.curtype}>
-                      {menuItem.curtype}
-                    </option>
-                  ))}
-                </select>
-                <input
-                  type="text"
-                  className="outline-none w-[305px] rounded-lg h-16 tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black "
-                  placeholder="0.00"
-                  value={y}
-                  onChange={(e) => handleY(e)}
-                />
-              </div>
+              <select
+                name="cars"
+                id="cars"
+                className=" cursor-pointer rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[73px] h-[63px] font-medium text-white bg-[#4e1576]"
+                onChange={showCurrency}
+              >
+                {listData.map((menuItem, index) => (
+                  <option id="x" key={index} value={menuItem.curtype}>
+                    {menuItem.curtype}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="text"
+                className="outline-none w-[305px] rounded-lg h-16 tracking-[0.556855px] font-normal leading-[67px] text-[49.0032px] ml-[23px] text-black "
+                placeholder="0.00"
+                value={y}
+                onChange={(e) => handleY(e)}
+              />
+            </div>
             ) : (
               <div className="shadow-md flex flex-row justify-center items-center rounded-[50px] w-[465px] h-[87px] bg-white">
                 <button className="rounded-[14px] ml-[20px] text-[23.5408px] tracking-[0.267509px] leading-8 hover:bg-sky-700 w-[120px] h-[63px] font-medium text-white bg-[#4e1576]"
@@ -259,10 +261,10 @@ function App() {
               </div>
             )}
           </div>
-          <p className="text-white absolute mt-[359px] mb-[74px] ml-[130px] text-3xl justify-center item-center">
-            Note-updating about every fifteen minutes.
-          </p>
         </div>
+          <p className="tracking-tighter text-white absolute  mt-[559px] mb-[74px] text-xl mr-[30px] ml-[30px] md:text-3xl justify-center  items-center">
+            Note- Estimates are not exact and are updated about every fifteen minutes.
+          </p> 
       </div>
     </div>
   );
